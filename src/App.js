@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Balance from './components/Balance'
+import Wallet from './components/Wallet'
+import Input from './components/Input'
+import Button from './components/Button'
+import Rate from './components/Rate'
+import Panel from './components/Panel'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Panel>
+        <Wallet />
+        <Input />
+        <Balance />
+      </Panel>
+
+      <Panel muted>
+        <Rate />
+        <Wallet />
+        <Input />
+        <Balance />
+        <Button />
+      </Panel>
     </div>
   );
 }
