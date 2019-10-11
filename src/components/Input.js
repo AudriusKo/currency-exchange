@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { setAmount } from '../actions/exchange'
-import { selectExchangeAmount } from '../reducers/exchange'
+import { getRate } from '../reducers/rates'
 
 const StyledInput = styled.input`
   width: 50%;
@@ -20,7 +20,7 @@ const mapDispatchToProps = {setAmount}
 
 const mapStateToProps = (state) => ({
   exchange: state.exchange,
-  exchangeAmount: selectExchangeAmount(state)
+  exchangeRate: getRate(state, state.exchange.from, state.exchange.to)
 })
 
 const isValidNumber = (value) => {
@@ -56,7 +56,7 @@ const sanitizeNumber = (input) => {
   return value
 }
 
-const Input = ({setAmount, source, exchange, exchangeAmount}) => {
+const Input = ({setAmount, source, exchange, exchangeRate}) => {
   const [value, setValue] = useState(0);
 
   const handleInputChange = event => {
@@ -70,8 +70,8 @@ const Input = ({setAmount, source, exchange, exchangeAmount}) => {
 
   let amount = value
 
-  if (exchange.source !== source) {
-    amount = exchangeAmount
+  if (!exchange.amount.eq(0) && exchange.source !== null && exchange.source !== source) {
+    amount = exchange.amount.times(exchangeRate).round(2, 0).toFixed(2)
   }
 
   return (

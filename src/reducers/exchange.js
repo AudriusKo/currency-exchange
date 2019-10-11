@@ -42,15 +42,3 @@ export default function (state = initialState, action) {
       return state
   }
 }
-
-export const selectExchangeAmount = state => {
-  const amount = state.exchange.amount
-
-  if (amount.eq(0)) {
-    return null
-  }
-
-  const rate = new Big(state.exchange.rate || 0)
-
-  return amount.times(rate).round(2, 0).toFixed(2)
-}

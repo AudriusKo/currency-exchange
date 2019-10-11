@@ -15,6 +15,7 @@ const StyledButton = styled.button`
   border-radius: 2em;
   transition: all 0.2s ease 0s;
   padding: 0.625em 5em;
+  outline: none;
 `
 
 const Button = () => (
