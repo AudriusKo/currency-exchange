@@ -1,24 +1,19 @@
 import React from 'react'
-import styled from 'styled-components'
-import { ReactComponent as Arrow } from '../assets/arrow.svg';
+import Currency from './Currency'
+import Input from './Input'
+import Balance from './Balance'
+import { connect } from "react-redux";
 
-const StyledWallet = styled.div`
-  width: 50%;
-  font-size: 2rem;
-  svg {
-    display: inline-block;
-    vertical-align: middle;
-    width: 1.2rem;
-    height: 1.2rem;
-    padding-left: 0.5rem;
-  }
-`
+const mapStateToProps = (state) => ({
+  wallets: state.wallets,
+})
 
-const Wallet = () => (
-  <StyledWallet>
-    USD
-    <Arrow />
-  </StyledWallet>
+const Wallet = ({wallets, id, type}) => (
+  <React.Fragment>
+    <Currency value={wallets[id].currency} type={type} />
+    <Input source={type} />
+    <Balance value={wallets[id].amount} currency={wallets[id].currency} />
+  </React.Fragment>
 )
 
-export default Wallet
+export default connect(mapStateToProps)(Wallet);

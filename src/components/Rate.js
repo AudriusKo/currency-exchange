@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import Switch from './Switch'
+import { connect } from 'react-redux'
+import { WALLETS_SIGN } from '../constants/wallets'
 
 const StyledRate = styled.div`
   display: inline-block;
@@ -17,11 +19,18 @@ const Container = styled.div`
   width: 100%;
 `
 
-const Rate = () => (
+const mapStateToProps = (state) => ({
+  exchange: state.exchange,
+})
+
+const Rate = ({exchange}) => (
   <Container>
-    <Switch />
-    <StyledRate>US$ 1 = £ 0,8173</StyledRate>
+    <Switch from={exchange.from} />
+    <StyledRate>
+      {WALLETS_SIGN[exchange.from]} 1 = {WALLETS_SIGN[exchange.to]}
+      {Math.floor(exchange.rate * 10000) / 10000}
+    </StyledRate>
   </Container>
 )
 
-export default Rate
+export default connect(mapStateToProps)(Rate);

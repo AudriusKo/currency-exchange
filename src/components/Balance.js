@@ -1,15 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
+import { WALLETS_SIGN } from '../constants/wallets'
 
 const StyledBalance = styled.div`
   font-size: 1rem;
-  color: rgb(139, 149, 158);
+  color: #8B959E;
   width: 100%;
   float: left;
 `
 
-const Balance = () => (
-  <StyledBalance>Balance: US$ 0</StyledBalance>
+const Balance = ({value, currency}) => (
+  <StyledBalance>Balance: {WALLETS_SIGN[currency]} {value}</StyledBalance>
 )
 
 export default Balance

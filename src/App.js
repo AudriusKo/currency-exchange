@@ -1,29 +1,29 @@
 import React from 'react';
-import Balance from './components/Balance'
-import Wallet from './components/Wallet'
-import Input from './components/Input'
 import Button from './components/Button'
 import Rate from './components/Rate'
 import Panel from './components/Panel'
+import Wallet from './components/Wallet'
+import { connect } from 'react-redux'
+import { WALLET_FROM, WALLET_TO } from './constants/wallets'
 
-function App() {
+const mapStateToProps = (state) => ({
+  exchange: state.exchange,
+})
+
+function App({exchange}) {
   return (
     <div className="container">
       <Panel>
-        <Wallet />
-        <Input />
-        <Balance />
+        <Wallet id={exchange.from} type={WALLET_FROM} />
       </Panel>
 
       <Panel muted>
         <Rate />
-        <Wallet />
-        <Input />
-        <Balance />
+        <Wallet id={exchange.to} type={WALLET_TO} />
         <Button />
       </Panel>
     </div>
   );
 }
 
-export default App;
+export default connect(mapStateToProps)(App);
