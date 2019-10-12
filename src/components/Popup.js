@@ -66,7 +66,11 @@ const Popup = ({ wallets, isShowing, hide, setWallet, setExchange, type }) => {
         <StyledTitle>Choose currency:</StyledTitle>
         <StyledUl>
           {Object.values(wallets).map((value, index) => {
-            return <StyledLi key={index} onClick={() => onClickHandler(value.currency)}>{value.currency} · {value.amount}</StyledLi>
+            return (
+              <StyledLi key={index} onClick={() => onClickHandler(value.currency)}>
+                {value.currency} · {value.amount.toString()}
+              </StyledLi>
+            )
           })}
         </StyledUl>
       </StyledPopup>

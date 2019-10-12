@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { exchange } from '../actions/wallets'
 
 const StyledButton = styled.button`
   display: block;
@@ -18,8 +20,10 @@ const StyledButton = styled.button`
   outline: none;
 `
 
-const Button = () => (
-  <StyledButton>Exchange</StyledButton>
+const mapDispatchToProps = {exchange}
+
+const Button = ({exchange, source, sourceAmount, target, targetAmount}) => (
+  <StyledButton onClick={() => exchange(source, sourceAmount, target, targetAmount)}>Exchange</StyledButton>
 )
 
-export default Button
+export default connect(null, mapDispatchToProps) (Button)

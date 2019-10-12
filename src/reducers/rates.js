@@ -20,5 +20,5 @@ export const getRate = (state, from, to) => {
   const rateFrom = new Big(state.rates[from])
   const rateTo = new Big(state.rates[to])
 
-  return rateFrom.div(rateTo)
+  return rateTo.div(rateFrom)
 }

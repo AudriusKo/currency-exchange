@@ -6,10 +6,11 @@ export const SET_EXCHANGE = 'exchange/SET_EXCHANGE'
 export const SET_RATES = 'exchange/SET_RATES'
 export const SET_AMOUNT = 'exchange/SET_AMOUNT'
 
-export const setAmount = (amount, source) => ({
+export const setAmount = (amount, source, targetAmount) => ({
   type: SET_AMOUNT,
   amount: new Big(amount),
-  source
+  source,
+  targetAmount
 })
 
 export const setExchange = (direction, currency) => ({

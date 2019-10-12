@@ -28,6 +28,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         amount: action.amount,
+        targetAmount: action.targetAmount,
         source: action.source
       }
     }

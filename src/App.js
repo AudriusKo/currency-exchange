@@ -20,7 +20,12 @@ function App({exchange}) {
       <Panel muted>
         <Rate />
         <Wallet id={exchange.to} type={WALLET_TO} />
-        <Button />
+        <Button
+          source={exchange.from}
+          target={exchange.to}
+          sourceAmount={exchange.amount}
+          targetAmount={exchange.targetAmount}
+        />
       </Panel>
     </div>
   );

@@ -10,7 +10,7 @@ const StyledBalance = styled.div`
 `
 
 const Balance = ({value, currency}) => (
-  <StyledBalance>Balance: {WALLETS_SIGN[currency]} {value}</StyledBalance>
+  <StyledBalance>Balance: {WALLETS_SIGN[currency]} {value.toString()}</StyledBalance>
 )
 
 export default Balance

@@ -3,7 +3,7 @@ import { select, put, takeLatest } from 'redux-saga/effects'
 
 const getExchange = state => state.exchange
 
-function* fetchRates(action) {
+function* setActiveWallets(action) {
   const exchange = yield select(getExchange)
   //already selected - do nothing
   if (exchange[action.direction] === action.currency) {
@@ -19,7 +19,7 @@ function* fetchRates(action) {
 }
 
 function* exchangeSaga() {
-  yield takeLatest(SET_EXCHANGE, fetchRates);
+  yield takeLatest(SET_EXCHANGE, setActiveWallets);
 }
 
 export default exchangeSaga

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { setAmount } from '../actions/exchange'
 import { getRate } from '../reducers/rates'
+import Big from 'big.js';
 
 const StyledInput = styled.input`
   width: 50%;
@@ -64,14 +65,17 @@ const Input = ({setAmount, source, exchange, exchangeRate}) => {
 
     if (isValidNumber(value)) {
       setValue(value)
-      setAmount(value || 0, source)
+
+      const targetAmount = Big(value || 0).times(exchangeRate).round(2, 0).toFixed(2)
+      setAmount(value || 0, source, targetAmount)
     }
   }
 
   let amount = value
 
-  if (!exchange.amount.eq(0) && exchange.source !== null && exchange.source !== source) {
-    amount = exchange.amount.times(exchangeRate).round(2, 0).toFixed(2)
+  //todo: this should be simplified (bug on swap)
+  if (exchange.source !== source) {
+     amount = exchange.targetAmount
   }
 
   return (
