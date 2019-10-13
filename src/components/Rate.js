@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Switch from './Switch'
 import { connect } from 'react-redux'
-import { WALLETS_SIGN } from '../constants/wallets'
+import { WALLET_SOURCE, WALLET_TARGET, WALLETS_SIGN } from '../constants/wallets'
 import { getRate } from '../reducers/rates'
 
 const StyledRate = styled.div`
@@ -22,14 +22,14 @@ const Container = styled.div`
 
 const mapStateToProps = (state) => ({
   exchange: state.exchange,
-  rate: getRate(state, state.exchange.from, state.exchange.to)
+  rate: getRate(state, state.exchange[WALLET_SOURCE], state.exchange[WALLET_TARGET])
 })
 
 const Rate = ({exchange, rate}) => (
   <Container>
     <Switch from={exchange.from} />
     <StyledRate>
-      {WALLETS_SIGN[exchange.from]} 1 = {WALLETS_SIGN[exchange.to]}
+      {WALLETS_SIGN[exchange[WALLET_SOURCE]]} 1 = {WALLETS_SIGN[exchange[WALLET_TARGET]]}
       {rate ? rate.round(4, 0).toFixed(4) : ' loading...'}
     </StyledRate>
   </Container>

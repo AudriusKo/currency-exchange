@@ -1,6 +1,6 @@
-export const EXCHANGE = 'exchange/EXCHANGE'
+export const EXCHANGE = 'exchangeCurrencies/EXCHANGE'
 
-export const exchange = (sourceCurrency, sourceAmount, targetCurrency, targetAmount) => ({
+export const exchangeCurrencies = (sourceCurrency, sourceAmount, targetCurrency, targetAmount) => ({
   type: EXCHANGE,
   sourceCurrency,
   sourceAmount,

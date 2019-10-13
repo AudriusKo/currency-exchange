@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { exchange } from '../actions/wallets'
+import { exchangeCurrencies } from '../actions/wallets'
+import { WALLET_SOURCE, WALLET_TARGET } from '../constants/wallets'
+import Big from 'big.js'
 
 const StyledButton = styled.button`
   display: block;
@@ -18,12 +20,36 @@ const StyledButton = styled.button`
   transition: all 0.2s ease 0s;
   padding: 0.625em 5em;
   outline: none;
+  :disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
 `
+const mapStateToProps = (state) => ({
+  exchange: state.exchange,
+})
 
-const mapDispatchToProps = {exchange}
+const mapDispatchToProps = {exchangeCurrencies}
 
-const Button = ({exchange, source, sourceAmount, target, targetAmount}) => (
-  <StyledButton onClick={() => exchange(source, sourceAmount, target, targetAmount)}>Exchange</StyledButton>
-)
+const Button = ({exchange, exchangeAmount, exchangeCurrencies, isOverBalance}) => {
+  const isDisabled = () => {
+    return (
+      isOverBalance ||
+      exchange.amount === '' ||
+      Big(exchange.amount).eq(0) ||
+      exchangeAmount.eq(0)
+    )
+  }
 
-export default connect(null, mapDispatchToProps) (Button)
+  const handleButtonClick = () => {
+    const sourceAmount = exchange.origin === WALLET_SOURCE ? exchange.amount : exchangeAmount
+    const targetAmount = exchange.origin === WALLET_TARGET ? exchange.amount : exchangeAmount
+    exchangeCurrencies(exchange[WALLET_SOURCE], sourceAmount, exchange[WALLET_TARGET], targetAmount)
+  }
+
+  return (
+    <StyledButton onClick={handleButtonClick} disabled={isDisabled()}>Exchange</StyledButton>
+  )
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Button)

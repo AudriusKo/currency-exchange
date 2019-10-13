@@ -1,4 +1,4 @@
-import { SET_RATES } from '../actions/exchange'
+import { SET_RATES } from '../actions/rates'
 import { fork, put, delay } from 'redux-saga/effects'
 import axios from 'axios/index'
 

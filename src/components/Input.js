@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { setAmount } from '../actions/exchange'
 import { getRate } from '../reducers/rates'
-import Big from 'big.js';
+import { WALLET_SOURCE, WALLET_TARGET } from '../constants/wallets'
+import { getExchangeAmount } from '../helpers/exchange'
 
 const StyledInput = styled.input`
   width: 50%;
@@ -21,10 +22,10 @@ const mapDispatchToProps = {setAmount}
 
 const mapStateToProps = (state) => ({
   exchange: state.exchange,
-  exchangeRate: getRate(state, state.exchange.from, state.exchange.to)
+  exchangeRate: getRate(state, state.exchange[WALLET_SOURCE], state.exchange[WALLET_TARGET])
 })
 
-const isValidNumber = (value) => {
+const isValidInput = (value) => {
   if (value.length > 10) {
     return false;
   }
@@ -37,8 +38,8 @@ const isValidNumber = (value) => {
   return /^[1-9][0-9]*(\.[0-9]{0,2})?$/g.test(value)
 }
 
-const sanitizeNumber = (input) => {
-  //treat , as .
+const sanitizeInput = (input) => {
+  //treat comma as dot
   let value = input.replace(',', '.')
 
   //trim leading zeros
@@ -49,7 +50,7 @@ const sanitizeNumber = (input) => {
     }
   }
 
-  //start with 0 if comma was entered first
+  //start with 0 if dot/comma was entered first
   if (value === '.') {
     value = '0.'
   }
@@ -57,31 +58,26 @@ const sanitizeNumber = (input) => {
   return value
 }
 
-const Input = ({setAmount, source, exchange, exchangeRate}) => {
-  const [value, setValue] = useState(0);
-
+const Input = ({setAmount, wallet, exchange, exchangeRate}) => {
   const handleInputChange = event => {
-    const value = sanitizeNumber(event.target.value)
+    const value = sanitizeInput(event.target.value)
 
-    if (isValidNumber(value)) {
-      setValue(value)
-
-      const targetAmount = Big(value || 0).times(exchangeRate).round(2, 0).toFixed(2)
-      setAmount(value || 0, source, targetAmount)
+    if (isValidInput(value)) {
+      setAmount(value, wallet)
     }
   }
 
-  let amount = value
+  let amount = exchange.amount
 
-  //todo: this should be simplified (bug on swap)
-  if (exchange.source !== source) {
-     amount = exchange.targetAmount
+  if (exchange.origin !== wallet) {
+    const exchangeAmount = getExchangeAmount(exchange.origin, exchange.amount, exchangeRate)
+    amount = exchangeAmount.eq(0) ? '' : exchangeAmount.toFixed(2)
   }
 
   return (
     <StyledInput
       placeholder={0}
-      value={amount || ''}
+      value={amount}
       onChange={handleInputChange}
     />
   )

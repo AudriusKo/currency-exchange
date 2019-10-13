@@ -1,4 +1,4 @@
-import { SET_RATES } from '../actions/exchange'
+import { SET_RATES } from '../actions/rates'
 import Big from 'big.js'
 
 const initialState = {}
@@ -14,7 +14,7 @@ export default function (state = initialState, action) {
 }
 
 export const getRate = (state, from, to) => {
-  if (state.rates[from] === undefined || state.rates[to] === undefined) { //todo
+  if (state.rates[from] === undefined || state.rates[to] === undefined) {
     return 0
   }
   const rateFrom = new Big(state.rates[from])

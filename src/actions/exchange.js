@@ -1,20 +1,24 @@
-import Big from 'big.js';
+export const SWAP_EXCHANGES = 'exchangeCurrencies/SWAP_EXCHANGES'
+export const SWAP_CURRENCIES = 'exchangeCurrencies/SWAP_CURRENCIES'
+export const SET_CURRENCY = 'exchangeCurrencies/SET_CURRENCY'
+export const SET_AMOUNT = 'exchangeCurrencies/SET_AMOUNT'
 
-export const SWITCH_WALLETS = 'exchange/SWITCH_WALLETS'
-export const SET_WALLET = 'exchange/SET_WALLET'
-export const SET_EXCHANGE = 'exchange/SET_EXCHANGE'
-export const SET_RATES = 'exchange/SET_RATES'
-export const SET_AMOUNT = 'exchange/SET_AMOUNT'
-
-export const setAmount = (amount, source, targetAmount) => ({
+export const setAmount = (amount, origin) => ({
   type: SET_AMOUNT,
-  amount: new Big(amount),
-  source,
-  targetAmount
+  amount,
+  origin
 })
 
-export const setExchange = (direction, currency) => ({
-  type: SET_EXCHANGE,
-  direction,
+export const setCurrency = (wallet, currency) => ({
+  type: SET_CURRENCY,
+  wallet,
   currency
+})
+
+export const swapExchanges = () => ({
+  type: SWAP_EXCHANGES,
+})
+
+export const swapCurrencies = () => ({
+  type: SWAP_CURRENCIES,
 })

@@ -2,9 +2,9 @@ import { WALLETS } from '../constants/wallets'
 import { EXCHANGE } from '../actions/wallets'
 import Big from 'big.js'
 
-const initialState = Object.values(WALLETS).reduce((acc, cur) => {
-  acc[cur] = {
-    currency: cur,
+const initialState = Object.values(WALLETS).reduce((acc, currency) => {
+  acc[currency] = {
+    currency,
     amount: Big(Math.floor(Math.random() * 1000))
   }
   return acc
@@ -21,7 +21,7 @@ export default function (state = initialState, action) {
 
       return {
         ...state,
-        cloneWallets: cloneState
+        ...cloneState
       }
     }
     default:

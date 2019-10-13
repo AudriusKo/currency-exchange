@@ -1,36 +1,39 @@
-import { WALLETS } from '../constants/wallets'
-import { SET_AMOUNT, SET_WALLET, SWITCH_WALLETS } from '../actions/exchange'
-import Big from 'big.js';
+import { WALLET_SOURCE, WALLET_TARGET, WALLETS } from '../constants/wallets'
+import { SET_AMOUNT, SET_CURRENCY, SWAP_CURRENCIES, SWAP_EXCHANGES } from '../actions/exchange'
 
 const initialState = {
-  from: WALLETS.EUR,
-  to: WALLETS.USD,
-  amount: Big(0),
-  source: null,
+  [WALLET_SOURCE]: WALLETS.EUR,
+  [WALLET_TARGET]: WALLETS.USD,
+  amount: '',
+  origin: WALLET_SOURCE
 }
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case SWITCH_WALLETS: {
+    case SWAP_EXCHANGES: {
       return {
         ...state,
-        from: state.to,
-        to: state.from
+        [WALLET_SOURCE]: state.target,
+        [WALLET_TARGET]: state.source,
+        origin: state.origin === WALLET_SOURCE ? WALLET_TARGET : WALLET_SOURCE,
       }
     }
-    case SET_WALLET: {
+    case SWAP_CURRENCIES: {
       return {
         ...state,
-        [action.direction]: action.currency
+        [WALLET_SOURCE]: state[WALLET_TARGET],
+        [WALLET_TARGET]: state[WALLET_SOURCE],
+      }
+    }
+    case SET_CURRENCY: {
+      return {
+        ...state,
+        [action.wallet]: action.currency
       }
     }
     case SET_AMOUNT: {
-      return {
-        ...state,
-        amount: action.amount,
-        targetAmount: action.targetAmount,
-        source: action.source
-      }
+      const {amount, origin} = action
+      return { ...state, amount, origin }
     }
     default:
       return state

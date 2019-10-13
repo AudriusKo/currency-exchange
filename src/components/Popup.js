@@ -2,7 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { setExchange } from '../actions/exchange'
+import { setCurrency, swapCurrencies } from '../actions/exchange'
+import { WALLET_SOURCE, WALLET_TARGET } from '../constants/wallets'
 
 const Background = styled.div`
   position: absolute;
@@ -46,17 +47,29 @@ const StyledLi = styled.li`
 
 const mapStateToProps = (state) => ({
   wallets: state.wallets,
+  exchange: state.exchange
 })
 
-const mapDispatchToProps = {setExchange}
+const mapDispatchToProps = {setCurrency, swapCurrencies}
 
-const Popup = ({ wallets, isShowing, hide, setWallet, setExchange, type }) => {
+const Popup = ({ wallets, exchange, isShowing, hide, setWallet, setCurrency, swapCurrencies, wallet }) => {
   if (!isShowing) {
     return null
   }
 
   const onClickHandler = (currency) => {
-    setExchange(type, currency)
+    if (exchange[wallet] === currency) {
+      hide()
+      return
+    }
+
+    //if currency is in from/to that means we need to swap
+    if ([exchange[WALLET_SOURCE], exchange[WALLET_TARGET]].includes(currency)) {
+      swapCurrencies()
+    } else {
+      setCurrency(wallet, currency)
+    }
+
     hide()
   }
 

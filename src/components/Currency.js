@@ -17,7 +17,7 @@ const StyledCurrency = styled.div`
   }
 `
 
-const Currency = ({value, type}) => {
+const Currency = ({value, wallet}) => {
   const {isShowing, toggle} = useModal();
 
   return (
@@ -29,7 +29,7 @@ const Currency = ({value, type}) => {
       <Popup
         isShowing={isShowing}
         hide={toggle}
-        type={type}
+        wallet={wallet}
       />
     </React.Fragment>
   )

@@ -10,5 +10,5 @@ export const WALLETS_SIGN = {
   GBP: '£'
 };
 
-export const WALLET_FROM = 'from'
-export const WALLET_TO = 'to'
+export const WALLET_SOURCE = 'source'
+export const WALLET_TARGET = 'target'
