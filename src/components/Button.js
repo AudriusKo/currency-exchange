@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { exchangeCurrencies } from '../actions/wallets'
 import { WALLET_SOURCE, WALLET_TARGET } from '../constants/wallets'
 import Big from 'big.js'
+import { setAmount } from '../actions/exchange'
 
 const StyledButton = styled.button`
   display: block;
@@ -29,9 +30,9 @@ const mapStateToProps = (state) => ({
   exchange: state.exchange,
 })
 
-const mapDispatchToProps = {exchangeCurrencies}
+const mapDispatchToProps = {exchangeCurrencies, setAmount}
 
-export const Button = ({exchange, exchangeAmount, exchangeCurrencies, isOverBalance}) => {
+export const Button = ({exchange, exchangeAmount, exchangeCurrencies, setAmount, isOverBalance}) => {
   const isDisabled = () => {
     return (
       isOverBalance ||
@@ -45,6 +46,7 @@ export const Button = ({exchange, exchangeAmount, exchangeCurrencies, isOverBala
     const sourceAmount = exchange.origin === WALLET_SOURCE ? exchange.amount : exchangeAmount
     const targetAmount = exchange.origin === WALLET_TARGET ? exchange.amount : exchangeAmount
     exchangeCurrencies(exchange[WALLET_SOURCE], sourceAmount, exchange[WALLET_TARGET], targetAmount)
+    setAmount('', WALLET_SOURCE)
   }
 
   return (

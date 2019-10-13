@@ -10,6 +10,7 @@ const setup = () => {
     },
     exchangeAmount: Big(5),
     exchangeCurrencies: jest.fn(),
+    setAmount: jest.fn(),
     isOverBalance: false
   }
 
