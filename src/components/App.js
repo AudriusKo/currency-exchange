@@ -9,7 +9,15 @@ import Input from './Input'
 import Balance from './Balance'
 import { getRate } from '../reducers/rates'
 import { getExchangeAmount } from '../helpers/exchange'
-import Big from '../../node_modules/big.js/big'
+import Big from 'big.js'
+import styled from 'styled-components'
+
+const StyledApp = styled.div`
+  margin: 0 auto;
+  max-width: 600px;
+  height: 100%;
+  box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.2);
+`
 
 const mapStateToProps = (state) => ({
   wallets: state.wallets,
@@ -29,7 +37,7 @@ function App({exchange, wallets, exchangeRate}) {
   }
 
   return (
-    <div className="container">
+    <StyledApp>
       <Panel>
         <Currency value={source} wallet={WALLET_SOURCE} />
         <Input wallet={WALLET_SOURCE} exchangeAmount={exchangeAmount} />
@@ -51,7 +59,7 @@ function App({exchange, wallets, exchangeRate}) {
         />
         <Button exchangeAmount={exchangeAmount} isOverBalance={isOverBalance()} />
       </Panel>
-    </div>
+    </StyledApp>
   );
 }
 

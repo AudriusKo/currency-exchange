@@ -18,6 +18,7 @@ export const Backdrop = styled.div`
 `
 
 const StyledPopup = styled.div`
+  max-width: 500px;
   background: #ffffff;
   padding: 20px 0;
   width: 90%;
