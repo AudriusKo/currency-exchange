@@ -26,7 +26,7 @@ const StyledSwitch = styled.div`
 
 const mapDispatchToProps = {swapExchanges}
 
-const Switch = ({swapExchanges}) => (
+export const Switch = ({swapExchanges}) => (
   <StyledSwitch onClick={() => swapExchanges()}><SwitchIcon /></StyledSwitch>
 )
 

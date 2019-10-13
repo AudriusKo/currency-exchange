@@ -1,4 +1,4 @@
-import { SET_RATES } from '../actions/rates'
+import { SET_RATES, SET_RATES_FAILED } from '../actions/rates'
 import { fork, put, delay } from 'redux-saga/effects'
 import axios from 'axios/index'
 
@@ -10,7 +10,7 @@ function* fetchRates() {
       rates.EUR = 1
       yield put({type: SET_RATES, rates});
     } catch (e) {
-      //TODO: handle this
+      yield put({type: SET_RATES_FAILED});
     }
 
     yield delay(10 * 1000);

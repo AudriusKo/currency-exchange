@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { setCurrency, swapCurrencies } from '../actions/exchange'
 import { WALLET_SOURCE, WALLET_TARGET } from '../constants/wallets'
 
-const Background = styled.div`
+export const Backdrop = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
@@ -32,12 +32,12 @@ const StyledTitle = styled.div`
   font-size: 0.8rem;
 `
 
-const StyledUl = styled.ul`
+const Currencies = styled.ul`
   padding: 0;
   border-bottom: 1px solid #e2e2e2;
 `
 
-const StyledLi = styled.li`
+export const CurrencyItem = styled.li`
   list-style-type: none;
   border-top: 1px solid #e2e2e2;
   padding: 10px 20px;
@@ -52,7 +52,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {setCurrency, swapCurrencies}
 
-const Popup = ({ wallets, exchange, isShowing, hide, setWallet, setCurrency, swapCurrencies, wallet }) => {
+export const Popup = ({ wallets, exchange, isShowing, hide, setWallet, setCurrency, swapCurrencies, wallet }) => {
   if (!isShowing) {
     return null
   }
@@ -74,20 +74,20 @@ const Popup = ({ wallets, exchange, isShowing, hide, setWallet, setCurrency, swa
   }
 
   return ReactDOM.createPortal(
-    <Background onClick={hide}>
+    <Backdrop onClick={hide}>
       <StyledPopup onClick={e => e.stopPropagation()}>
         <StyledTitle>Choose currency:</StyledTitle>
-        <StyledUl>
+        <Currencies>
           {Object.values(wallets).map((value, index) => {
             return (
-              <StyledLi key={index} onClick={() => onClickHandler(value.currency)}>
+              <CurrencyItem key={index} onClick={() => onClickHandler(value.currency)}>
                 {value.currency} · {value.amount.toString()}
-              </StyledLi>
+              </CurrencyItem>
             )
           })}
-        </StyledUl>
+        </Currencies>
       </StyledPopup>
-    </Background>, document.body
+    </Backdrop>, document.body
   )
 }
 

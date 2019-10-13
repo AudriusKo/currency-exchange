@@ -1,4 +1,4 @@
-import { SET_RATES } from '../actions/rates'
+import { SET_RATES, SET_RATES_FAILED } from '../actions/rates'
 import Big from 'big.js'
 
 const initialState = {}
@@ -7,6 +7,9 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case SET_RATES: {
       return action.rates
+    }
+    case SET_RATES_FAILED: {
+      return {}
     }
     default:
       return state

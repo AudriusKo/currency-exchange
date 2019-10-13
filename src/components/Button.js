@@ -31,7 +31,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {exchangeCurrencies}
 
-const Button = ({exchange, exchangeAmount, exchangeCurrencies, isOverBalance}) => {
+export const Button = ({exchange, exchangeAmount, exchangeCurrencies, isOverBalance}) => {
   const isDisabled = () => {
     return (
       isOverBalance ||

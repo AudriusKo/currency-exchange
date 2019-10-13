@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import Button from './components/Button'
 import Rate from './components/Rate'
 import Panel from './components/Panel'
@@ -32,7 +32,7 @@ function App({exchange, wallets, exchangeRate}) {
     <div className="container">
       <Panel>
         <Currency value={source} wallet={WALLET_SOURCE} />
-        <Input wallet={WALLET_SOURCE} />
+        <Input wallet={WALLET_SOURCE} exchangeAmount={exchangeAmount} />
         <Balance
           value={wallets[source].amount}
           currency={source}
@@ -41,9 +41,9 @@ function App({exchange, wallets, exchangeRate}) {
       </Panel>
 
       <Panel muted>
-        <Rate />
+        <Rate source={source} target={target} />
         <Currency value={target} wallet={WALLET_TARGET} />
-        <Input wallet={WALLET_TARGET} />
+        <Input wallet={WALLET_TARGET} exchangeAmount={exchangeAmount} />
         <Balance
           value={wallets[target].amount}
           currency={target}

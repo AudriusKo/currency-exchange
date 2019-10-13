@@ -9,7 +9,7 @@ const StyledBalance = styled.div`
   float: left;
 `
 
-const ErrorMessage = styled.span`
+export const ErrorMessage = styled.span`
   float: right;
   color: #8B959E
 `

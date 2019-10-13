@@ -2,9 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { setAmount } from '../actions/exchange'
-import { getRate } from '../reducers/rates'
-import { WALLET_SOURCE, WALLET_TARGET } from '../constants/wallets'
-import { getExchangeAmount } from '../helpers/exchange'
 
 const StyledInput = styled.input`
   width: 50%;
@@ -21,8 +18,7 @@ const StyledInput = styled.input`
 const mapDispatchToProps = {setAmount}
 
 const mapStateToProps = (state) => ({
-  exchange: state.exchange,
-  exchangeRate: getRate(state, state.exchange[WALLET_SOURCE], state.exchange[WALLET_TARGET])
+  exchange: state.exchange
 })
 
 const isValidInput = (value) => {
@@ -58,7 +54,7 @@ const sanitizeInput = (input) => {
   return value
 }
 
-const Input = ({setAmount, wallet, exchange, exchangeRate}) => {
+export const Input = ({setAmount, wallet, exchange, exchangeAmount}) => {
   const handleInputChange = event => {
     const value = sanitizeInput(event.target.value)
 
@@ -70,7 +66,6 @@ const Input = ({setAmount, wallet, exchange, exchangeRate}) => {
   let amount = exchange.amount
 
   if (exchange.origin !== wallet) {
-    const exchangeAmount = getExchangeAmount(exchange.origin, exchange.amount, exchangeRate)
     amount = exchangeAmount.eq(0) ? '' : exchangeAmount.toFixed(2)
   }
 
