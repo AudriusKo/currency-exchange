@@ -38,7 +38,7 @@ const isValidInput = (value) => {
 const sanitizeInput = (input) => {
   //treat comma as dot
   let value = input.replace(',', '.')
-  value = value.replace('- ', '')
+  value = value.replace(/[-+ ]/g, "");
 
   //trim leading zeros
   if (value.length) {
