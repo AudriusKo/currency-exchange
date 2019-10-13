@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { setAmount } from '../actions/exchange'
+import { WALLET_SOURCE } from '../constants/wallets'
 
 const StyledInput = styled.input`
   width: 50%;
@@ -37,6 +38,7 @@ const isValidInput = (value) => {
 const sanitizeInput = (input) => {
   //treat comma as dot
   let value = input.replace(',', '.')
+  value = value.replace('- ', '')
 
   //trim leading zeros
   if (value.length) {
@@ -67,6 +69,10 @@ export const Input = ({setAmount, wallet, exchange, exchangeAmount}) => {
 
   if (exchange.origin !== wallet) {
     amount = exchangeAmount.eq(0) ? '' : exchangeAmount.toFixed(2)
+  }
+
+  if (amount.length) {
+    amount = wallet === WALLET_SOURCE ? '- ' + amount : '+ ' + amount
   }
 
   return (

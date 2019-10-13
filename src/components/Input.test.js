@@ -9,7 +9,8 @@ const setup = () => {
     setAmount: jest.fn(),
     wallet: WALLET_SOURCE,
     exchange: {
-      origin: WALLET_SOURCE
+      origin: WALLET_SOURCE,
+      amount: ''
     },
     exchangeAmount: Big(9.5)
   }
@@ -23,10 +24,10 @@ const setup = () => {
 }
 
 describe('<Input />', () => {
-  it('initial value should be undefined', () => {
+  it('initial value should be empty', () => {
     const { wrapper } = setup()
 
-    expect(wrapper.props().value).toBeUndefined();
+    expect(wrapper.props().value).toEqual('');
   });
 
   it('should set conversion amount if input is not the original input', () => {
@@ -34,7 +35,7 @@ describe('<Input />', () => {
 
     wrapper.setProps({ wallet: WALLET_TARGET })
 
-    expect(wrapper.props().value).toEqual('9.50');
+    expect(wrapper.props().value).toEqual('+ 9.50');
   });
 
   it('should use amount if input source', () => {
@@ -47,7 +48,7 @@ describe('<Input />', () => {
       }
     })
 
-    expect(wrapper.props().value).toEqual('4.54');
+    expect(wrapper.props().value).toEqual('- 4.54');
   });
 
 
