@@ -1,14 +1,19 @@
 import { WALLET_SOURCE, WALLET_TARGET, WALLETS } from '../constants/wallets'
-import { SET_AMOUNT, SET_CURRENCY, SWAP_CURRENCIES, SWAP_EXCHANGES } from '../actions/exchange'
+import {
+  SET_AMOUNT,
+  SET_CURRENCY,
+  SWAP_CURRENCIES,
+  SWAP_EXCHANGES,
+} from '../actions/exchange'
 
 const initialState = {
   [WALLET_SOURCE]: WALLETS.EUR,
   [WALLET_TARGET]: WALLETS.USD,
   amount: '',
-  origin: WALLET_SOURCE
+  origin: WALLET_SOURCE,
 }
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case SWAP_EXCHANGES: {
       return {
@@ -28,11 +33,11 @@ export default function (state = initialState, action) {
     case SET_CURRENCY: {
       return {
         ...state,
-        [action.wallet]: action.currency
+        [action.wallet]: action.currency,
       }
     }
     case SET_AMOUNT: {
-      const {amount, origin} = action
+      const { amount, origin } = action
       return { ...state, amount, origin }
     }
     default:

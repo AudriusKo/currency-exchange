@@ -1,5 +1,5 @@
 import React from 'react'
-import { ReactComponent as SwitchIcon } from '../assets/switch.svg';
+import { ReactComponent as SwitchIcon } from '../assets/switch.svg'
 import styled from 'styled-components'
 import { swapExchanges } from '../actions/exchange'
 import { connect } from 'react-redux'
@@ -24,10 +24,15 @@ const StyledSwitch = styled.div`
   }
 `
 
-const mapDispatchToProps = {swapExchanges}
+const mapDispatchToProps = { swapExchanges }
 
-export const Switch = ({swapExchanges}) => (
-  <StyledSwitch onClick={() => swapExchanges()}><SwitchIcon /></StyledSwitch>
+export const Switch = ({ swapExchanges }) => (
+  <StyledSwitch onClick={() => swapExchanges()}>
+    <SwitchIcon />
+  </StyledSwitch>
 )
 
-export default connect(null, mapDispatchToProps) (Switch)
+export default connect(
+  null,
+  mapDispatchToProps
+)(Switch)

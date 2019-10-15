@@ -16,33 +16,33 @@ const StyledInput = styled.input`
   }
 `
 
-const mapDispatchToProps = {setAmount}
+const mapDispatchToProps = { setAmount }
 
-const mapStateToProps = (state) => ({
-  exchange: state.exchange
+const mapStateToProps = state => ({
+  exchange: state.exchange,
 })
 
-const isValidInput = (value) => {
+const isValidInput = value => {
   if (value.length > 12) {
-    return false;
+    return false
   }
   if (value === '') {
-    return true;
+    return true
   }
   if (/^0(\.[0-9]{0,2})?$/g.test(value)) {
-    return true;
+    return true
   }
   return /^[1-9][0-9]*(\.[0-9]{0,2})?$/g.test(value)
 }
 
-const sanitizeInput = (input) => {
+const sanitizeInput = input => {
   //treat comma as dot
   let value = input.replace(',', '.')
-  value = value.replace(/[-+ ]/g, "");
+  value = value.replace(/[-+ ]/g, '')
 
   //trim leading zeros
   if (value.length) {
-    value = value.replace(/^(?!0\.)0+/, "")
+    value = value.replace(/^(?!0\.)0+/, '')
     if (value === '') {
       value = '0'
     }
@@ -56,7 +56,7 @@ const sanitizeInput = (input) => {
   return value
 }
 
-export const Input = ({setAmount, wallet, exchange, exchangeAmount}) => {
+export const Input = ({ setAmount, wallet, exchange, exchangeAmount }) => {
   const handleInputChange = event => {
     const value = sanitizeInput(event.target.value)
 
@@ -76,12 +76,11 @@ export const Input = ({setAmount, wallet, exchange, exchangeAmount}) => {
   }
 
   return (
-    <StyledInput
-      placeholder={0}
-      value={amount}
-      onChange={handleInputChange}
-    />
+    <StyledInput placeholder={0} value={amount} onChange={handleInputChange} />
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Input)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Input)

@@ -26,13 +26,19 @@ const StyledButton = styled.button`
     cursor: not-allowed;
   }
 `
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   exchange: state.exchange,
 })
 
-const mapDispatchToProps = {exchangeCurrencies, setAmount}
+const mapDispatchToProps = { exchangeCurrencies, setAmount }
 
-export const Button = ({exchange, exchangeAmount, exchangeCurrencies, setAmount, isOverBalance}) => {
+export const Button = ({
+  exchange,
+  exchangeAmount,
+  exchangeCurrencies,
+  setAmount,
+  isOverBalance,
+}) => {
   const isDisabled = () => {
     return (
       isOverBalance ||
@@ -43,15 +49,27 @@ export const Button = ({exchange, exchangeAmount, exchangeCurrencies, setAmount,
   }
 
   const handleButtonClick = () => {
-    const sourceAmount = exchange.origin === WALLET_SOURCE ? exchange.amount : exchangeAmount
-    const targetAmount = exchange.origin === WALLET_TARGET ? exchange.amount : exchangeAmount
-    exchangeCurrencies(exchange[WALLET_SOURCE], sourceAmount, exchange[WALLET_TARGET], targetAmount)
+    const sourceAmount =
+      exchange.origin === WALLET_SOURCE ? exchange.amount : exchangeAmount
+    const targetAmount =
+      exchange.origin === WALLET_TARGET ? exchange.amount : exchangeAmount
+    exchangeCurrencies(
+      exchange[WALLET_SOURCE],
+      sourceAmount,
+      exchange[WALLET_TARGET],
+      targetAmount
+    )
     setAmount('', WALLET_SOURCE)
   }
 
   return (
-    <StyledButton onClick={handleButtonClick} disabled={isDisabled()}>Exchange</StyledButton>
+    <StyledButton onClick={handleButtonClick} disabled={isDisabled()}>
+      Exchange
+    </StyledButton>
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Button)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Button)

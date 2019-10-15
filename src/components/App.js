@@ -16,23 +16,32 @@ const StyledApp = styled.div`
   margin: 0 auto;
   max-width: 600px;
   height: 100%;
-  box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.2);
 `
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   wallets: state.wallets,
   exchange: state.exchange,
-  exchangeRate: getRate(state, state.exchange[WALLET_SOURCE], state.exchange[WALLET_TARGET]),
+  exchangeRate: getRate(
+    state,
+    state.exchange[WALLET_SOURCE],
+    state.exchange[WALLET_TARGET]
+  ),
 })
 
-function App({exchange, wallets, exchangeRate}) {
+function App({ exchange, wallets, exchangeRate }) {
   const source = exchange[WALLET_SOURCE]
   const target = exchange[WALLET_TARGET]
   const originAmount = Big(exchange.amount || 0)
-  const exchangeAmount = getExchangeAmount(exchange.origin, exchange.amount, exchangeRate)
+  const exchangeAmount = getExchangeAmount(
+    exchange.origin,
+    exchange.amount,
+    exchangeRate
+  )
 
   const isOverBalance = () => {
-    const requestedAmount = exchange.origin === WALLET_SOURCE ? originAmount : exchangeAmount
+    const requestedAmount =
+      exchange.origin === WALLET_SOURCE ? originAmount : exchangeAmount
     return wallets[source].amount.lt(requestedAmount)
   }
 
@@ -57,10 +66,13 @@ function App({exchange, wallets, exchangeRate}) {
           currency={target}
           isOverBalance={false}
         />
-        <Button exchangeAmount={exchangeAmount} isOverBalance={isOverBalance()} />
+        <Button
+          exchangeAmount={exchangeAmount}
+          isOverBalance={isOverBalance()}
+        />
       </Panel>
     </StyledApp>
-  );
+  )
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App)

@@ -4,14 +4,14 @@ import { Switch } from './Switch'
 
 const setup = () => {
   const props = {
-    swapExchanges: jest.fn()
+    swapExchanges: jest.fn(),
   }
 
   const wrapper = shallow(<Switch {...props} />)
 
   return {
     props,
-    wrapper
+    wrapper,
   }
 }
 
@@ -21,6 +21,5 @@ describe('<Switch />', () => {
 
     wrapper.simulate('click')
     expect(props.swapExchanges).toBeCalled()
-  });
-
+  })
 })

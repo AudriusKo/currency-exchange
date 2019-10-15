@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { setCurrency, swapCurrencies } from '../actions/exchange'
@@ -46,19 +46,28 @@ export const CurrencyItem = styled.li`
   cursor: pointer;
 `
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   wallets: state.wallets,
-  exchange: state.exchange
+  exchange: state.exchange,
 })
 
-const mapDispatchToProps = {setCurrency, swapCurrencies}
+const mapDispatchToProps = { setCurrency, swapCurrencies }
 
-export const Popup = ({ wallets, exchange, isShowing, hide, setWallet, setCurrency, swapCurrencies, wallet }) => {
+export const Popup = ({
+  wallets,
+  exchange,
+  isShowing,
+  hide,
+  setWallet,
+  setCurrency,
+  swapCurrencies,
+  wallet,
+}) => {
   if (!isShowing) {
     return null
   }
 
-  const onClickHandler = (currency) => {
+  const onClickHandler = currency => {
     if (exchange[wallet] === currency) {
       hide()
       return
@@ -81,15 +90,22 @@ export const Popup = ({ wallets, exchange, isShowing, hide, setWallet, setCurren
         <Currencies>
           {Object.values(wallets).map((value, index) => {
             return (
-              <CurrencyItem key={index} onClick={() => onClickHandler(value.currency)}>
+              <CurrencyItem
+                key={index}
+                onClick={() => onClickHandler(value.currency)}
+              >
                 {value.currency} · {value.amount.toString()}
               </CurrencyItem>
             )
           })}
         </Currencies>
       </StyledPopup>
-    </Backdrop>, document.body
+    </Backdrop>,
+    document.body
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Popup);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Popup)

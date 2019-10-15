@@ -21,20 +21,20 @@ const Container = styled.div`
 `
 
 const mapStateToProps = (state, props) => ({
-  rate: getRate(state, props.source, props.target)
+  rate: getRate(state, props.source, props.target),
 })
 
-export const Rate = ({rate, source, target}) => (
+export const Rate = ({ rate, source, target }) => (
   <Container>
     <Switch />
     <StyledRate>
-      {rate ? (
-        `${WALLETS_SIGN[source]} 1 = ${WALLETS_SIGN[target]} ${rate.round(4, 0).toFixed(4)}`
-      ) : (
-        'Loading...'
-      )}
+      {rate
+        ? `${WALLETS_SIGN[source]} 1 = ${WALLETS_SIGN[target]} ${rate
+            .round(4, 0)
+            .toFixed(4)}`
+        : 'Loading...'}
     </StyledRate>
   </Container>
 )
 
-export default connect(mapStateToProps)(Rate);
+export default connect(mapStateToProps)(Rate)

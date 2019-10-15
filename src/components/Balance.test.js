@@ -6,14 +6,14 @@ const setup = () => {
   const props = {
     value: 10,
     currency: 'EUR',
-    isOverBalance: false
+    isOverBalance: false,
   }
 
   const wrapper = shallow(<Balance {...props} />)
 
   return {
     props,
-    wrapper
+    wrapper,
   }
 }
 
@@ -23,8 +23,8 @@ describe('<Balance />', () => {
 
     const error = wrapper.find(ErrorMessage)
 
-    expect(error.exists()).toBeFalsy();
-  });
+    expect(error.exists()).toBeFalsy()
+  })
 
   it('renders error when amount is over balance', () => {
     const { wrapper } = setup()
@@ -32,7 +32,7 @@ describe('<Balance />', () => {
 
     const error = wrapper.find(ErrorMessage)
 
-    expect(error.exists()).toBeTruthy();
-    expect(error.text()).toEqual('exceeds balance');
-  });
+    expect(error.exists()).toBeTruthy()
+    expect(error.text()).toEqual('exceeds balance')
+  })
 })

@@ -6,13 +6,13 @@ export const SET_AMOUNT = 'exchangeCurrencies/SET_AMOUNT'
 export const setAmount = (amount, origin) => ({
   type: SET_AMOUNT,
   amount,
-  origin
+  origin,
 })
 
 export const setCurrency = (wallet, currency) => ({
   type: SET_CURRENCY,
   wallet,
-  currency
+  currency,
 })
 
 export const swapExchanges = () => ({

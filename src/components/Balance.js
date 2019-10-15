@@ -4,22 +4,20 @@ import { WALLETS_SIGN } from '../constants/wallets'
 
 const StyledBalance = styled.div`
   font-size: 1rem;
-  color: ${props => props.isOverBalance ? "#EB008D" : "#8B959E"};
+  color: ${props => (props.isOverBalance ? '#EB008D' : '#8B959E')};
   width: 100%;
   float: left;
 `
 
 export const ErrorMessage = styled.span`
   float: right;
-  color: #8B959E
+  color: #8b959e;
 `
 
-const Balance = ({value, currency, isOverBalance}) => (
+const Balance = ({ value, currency, isOverBalance }) => (
   <StyledBalance isOverBalance={isOverBalance}>
     Balance: {WALLETS_SIGN[currency]} {value.toString()}
-    {isOverBalance &&
-      <ErrorMessage>exceeds balance</ErrorMessage>
-    }
+    {isOverBalance && <ErrorMessage>exceeds balance</ErrorMessage>}
   </StyledBalance>
 )
 
