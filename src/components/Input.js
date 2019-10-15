@@ -23,7 +23,7 @@ const mapStateToProps = (state) => ({
 })
 
 const isValidInput = (value) => {
-  if (value.length > 10) {
+  if (value.length > 12) {
     return false;
   }
   if (value === '') {
